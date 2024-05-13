@@ -1,9 +1,17 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import Phonebook from './Phonebook/Phonebook';
 
 
 export const App = () => {
- 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(()=> {
+    const timeout = setTimeout(()=> {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <div
       style={{
@@ -17,9 +25,14 @@ export const App = () => {
         padding: '90px',
       }}
     >
-      <h1>AEM React homework template</h1>
-      
-      <Phonebook />
+    {isLoading ? (
+    <p> Loading... </p>
+    ) : (
+    <>
+    <h1>AEM React homework template</h1>
+    <Phonebook />
+    </>
+  )}
     </div>
   );
 };
